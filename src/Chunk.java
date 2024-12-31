@@ -6,14 +6,26 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Chunk {
     /// 1.4.3.6.2 Чанк имеет фиксированный размер (RCHS), можно хранить количество блоков (cbs), которые были записаны от начала,
-    public static int RCHS = 20;
+
     public List<String> blocks = Collections.synchronizedList(new ArrayList<>());
-    public AtomicInteger cbs = new AtomicInteger(0);
+    public AtomicInteger cbs = new AtomicInteger(-1);
     /// TODO 1.4.3.6.7. Информация об увеличении счётчика распространяется с помощью широкого вещания на другие контроллеры.
 
-    public Chunk(){
-        for (int i=0; i<RCHS; i++){
-            blocks.add("");
+    /**
+     * Добавляет блок данных в чанк
+     * @param block сохраняемые в блок данные
+     * @return позицию вставки блока
+     */
+    public synchronized int append(String block) {
+        int blockIndex = cbs.incrementAndGet();
+
+        /// 1.4.3.6.3 тогда проверка сводится к тому, что есть место для записи блока
+        if (( blockIndex < Config.RCHS)) {
+            blocks.add(block);
+            return blockIndex;
+        } else {
+            return -1;
         }
     }
+
 }

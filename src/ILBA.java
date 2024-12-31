@@ -34,4 +34,9 @@ public class ILBA implements Comparable<ILBA>{
             return c;
         }
     }
+
+    @Override
+    public String toString(){
+        return "ILBA [chunk="+chunk+" block="+block +"]";
+    }
 }

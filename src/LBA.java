@@ -29,4 +29,9 @@ public class LBA implements Comparable<LBA>{
     public int compareTo(LBA otherLBA) {
         return Integer.compare(getLba(), otherLBA.getLba());
     }
+
+    @Override
+    public String toString() {
+        return "LBA="+lba;
+    }
 }

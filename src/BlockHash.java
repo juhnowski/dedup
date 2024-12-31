@@ -25,4 +25,9 @@ public class BlockHash implements Comparable<BlockHash>{
     public int compareTo(BlockHash otherBlockHash) {
         return Integer.compare(blockHash, otherBlockHash.blockHash);
     }
+
+    @Override
+    public String toString(){
+        return "blockHash="+blockHash;
+    }
 }
