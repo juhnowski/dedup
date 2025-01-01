@@ -22,7 +22,8 @@ public class Main {
         try {
             LBA lba = new LBA(0);
             m.dedup(lba, "123 456 789 101 102 103 104 105 106 107 108 109 110");
-           // m.read(lba);
+            System.out.println("--------------- read ---------------");
+            System.out.println(m.read(lba));
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -101,6 +102,7 @@ public class Main {
 
             /// 1.5. Блок записывается в PackageT
             blocks.put(hash,dto);
+            lba.list.add(dto);
         }
 
         Debug.printPackageT();
@@ -120,16 +122,26 @@ public class Main {
     /// 2.	Алгоритм обработки запроса на чтение
     String read(LBA lba){
         StringBuilder sb = new StringBuilder();
-        ///2.2. Делается запрос в PackageT по LBA. PackageT возвращает либо массив из BN элементов вида (hash, iLBA), либо пустой массив
-        ConcurrentSkipListMap<BlockHash,ILBA> blocks = packageT.get(lba);
-        var it = blocks.values().iterator();
-        while (it.hasNext()){
+        var it = lba.list.iterator();
+        while (it.hasNext()) {
             ILBA ilba = it.next();
             Chunk ch = ReservedChunk.chunks.get(ilba.getChunk());
             String s = ch.blocks.get(ilba.getBlock());
-            System.out.println(s);
             sb.append(s);
         }
         return sb.toString();
+
+        // ///2.2. Делается запрос в PackageT по LBA. PackageT возвращает либо массив из BN элементов вида (hash, iLBA), либо пустой массив
+        // ConcurrentSkipListMap<BlockHash,ILBA> blocks = packageT.get(lba);
+        // var it = blocks.navigableKeySet().iterator();
+        // while (it.hasNext()){
+        //     BlockHash hash = it.next();
+        //     ILBA ilba = blocks.get(hash);
+        //     Chunk ch = ReservedChunk.chunks.get(ilba.getChunk());
+        //     String s = ch.blocks.get(ilba.getBlock());
+        //     System.out.println(s);
+        //     sb.append(s);
+        // }
+        // return sb.toString();
     }
 }

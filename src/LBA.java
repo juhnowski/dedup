@@ -1,8 +1,10 @@
+import java.util.LinkedList;
 import java.util.Objects;
 import java.util.Optional;
 
 public class LBA implements Comparable<LBA>{
     private final int lba;
+    public final LinkedList<ILBA> list = new LinkedList<>();
 
     public LBA(int lba) {
         this.lba = lba;
