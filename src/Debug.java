@@ -13,11 +13,11 @@ public class Debug {
         if (flag) {
             System.out.println("\n-------------- PackageT --------------");
             
-            var it = Main.packageT.navigableKeySet().iterator();
+            var it = Controller.packageT.navigableKeySet().iterator();
             while (it.hasNext()) {
                 LBA lba = it.next();
                 System.out.println(lba);
-                var hashList = Main.packageT.get(lba);
+                var hashList = Controller.packageT.get(lba);
                 var it1=hashList.navigableKeySet().iterator();
                 while (it1.hasNext()) {
                     BlockHash bh = it1.next();
@@ -31,15 +31,15 @@ public class Debug {
     public static void printGarbageMap() {
         if (flag) {
             System.out.println("\n-------------- GarbageMap --------------");
-            if ( Main.garbageMap.isEmpty()) {
+            if ( Controller.garbageMap.isEmpty()) {
                 System.out.println("Empty");
                 return;
             }
 
-            var it = Main.garbageMap.navigableKeySet().iterator();
+            var it = Controller.garbageMap.navigableKeySet().iterator();
             while (it.hasNext()) {
                 ILBA ilba = it.next();
-                Boolean fl = Main.garbageMap.get(ilba);
+                Boolean fl = Controller.garbageMap.get(ilba);
                 System.out.println(ilba + "\t"+fl);
             }
         }
